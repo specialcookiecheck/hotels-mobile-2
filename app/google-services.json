@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "300860171932",
+    "project_id": "hotels-mobile-setu",
+    "storage_bucket": "hotels-mobile-setu.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:300860171932:android:5f736caae5afe6188e6f59",
+        "android_client_info": {
+          "package_name": "ie.setu.hotels"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "300860171932-a95tfql4k4vjugc38508l64qr0j7bd3k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ie.setu.hotels",
+            "certificate_hash": "8b4b3a5f5c8ffde7f7709de654970d2f3988a7aa"
+          }
+        },
+        {
+          "client_id": "300860171932-eb4pn1afim7sf1qagiocaq45h5i54u92.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCES3jokDtcBTUhlUJwXSuRFz7t_70hcqw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "300860171932-eb4pn1afim7sf1qagiocaq45h5i54u92.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
