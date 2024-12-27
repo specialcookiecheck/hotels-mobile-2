@@ -1,5 +1,6 @@
 package ie.setu.hotels.ui.screens.addHotel
 
+import android.net.Uri
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,11 +16,14 @@ import javax.inject.Inject
 @HiltViewModel
 class AddHotelViewModel @Inject
 constructor(private val repository: FirestoreService,
+            private val firestoreService: FirestoreService,
     private val authService: AuthService)
     : ViewModel() {
     var isErr = mutableStateOf(false)
     var error = mutableStateOf(Exception())
     var isLoading = mutableStateOf(false)
+    val imageUri get() = authService.customPhotoUri
+    val email get() = authService.email.toString()
 
     fun insert(hotel: HotelModel) =
         viewModelScope.launch {
@@ -37,5 +41,12 @@ constructor(private val repository: FirestoreService,
             isLoading.value = false
         }
             Timber.i("AddHotel Insert Message = : ${error.value.message} and isError ${isErr.value}")
+    }
+
+    fun updateImageUri(uri: Uri) {
+        viewModelScope.launch {
+            authService.updateUserPhoto(uri)
+            firestoreService.updateUserPhotoUris(email,imageUri!!)
+        }
     }
 }

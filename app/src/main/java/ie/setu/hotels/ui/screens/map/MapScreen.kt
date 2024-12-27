@@ -80,7 +80,7 @@ fun MapScreen(
                 MarkerComposable(
                     state = MarkerState(position = position),
                     title = it.preferredPaymentType + " €" + it.roomRate,
-                    snippet = it.message
+                    snippet = it.comment
                     ) { CustomMarker() }
                 }
             }

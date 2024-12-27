@@ -52,12 +52,12 @@ class AuthRepository
     }
     override suspend fun createUser(name: String, email: String, password: String): FirebaseSignInResponse {
         return try {
-            val uri = Uri.parse("android.resource://ie.setu.hotels/drawable/aboutus_homer")
+            val uri = Uri.parse("android.resource://ie.setu.hotels/drawable/about_hotels")
             val result = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
             result.user?.updateProfile(UserProfileChangeRequest
                 .Builder()
                 .setDisplayName(name)
-                .setPhotoUri(uploadCustomPhotoUri(uri))
+                .setPhotoUri(uploadUserPhoto(uri))
                 .build())?.await()
             return Response.Success(result.user!!)
         } catch (e: Exception) {
@@ -99,11 +99,11 @@ class AuthRepository
         }
     }
 
-    override suspend fun updatePhoto(uri: Uri) : FirebaseSignInResponse {
+    override suspend fun updateUserPhoto(uri: Uri) : FirebaseSignInResponse {
         return try {
             currentUser!!.updateProfile(UserProfileChangeRequest
                 .Builder()
-                .setPhotoUri(uploadCustomPhotoUri(uri))
+                .setPhotoUri(uploadUserPhoto(uri))
                 .build()).await()
             return Response.Success(currentUser!!)
         } catch (e: Exception) {
@@ -112,12 +112,41 @@ class AuthRepository
         }
     }
 
-    private suspend fun uploadCustomPhotoUri(uri: Uri) : Uri {
+    /*
+    override suspend fun updateHotelImage(uri: Uri) : FirebaseSignInResponse {
+        return try {
+            currentUser!!.updateProfile(UserProfileChangeRequest
+                .Builder()
+                .setImageUri(uploadHotelImageUri(uri))
+                .build()).await()
+            return Response.Success(currentUser!!)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Response.Failure(e)
+        }
+    }
+
+     */
+
+    private suspend fun uploadUserPhoto(uri: Uri) : Uri {
         if (uri.toString().isNotEmpty()) {
-            val urlTask = storageService.uploadFile(uri = uri, "images")
+            val urlTask = storageService.uploadFile(uri = uri, "user_photos")
             val url = urlTask.addOnCompleteListener { task ->
                 if (!task.isSuccessful) {
-                    Timber.e("task not successful: ${task.exception}")
+                    Timber.e("Upload of user photo failed: ${task.exception}")
+                }
+            }.await()
+            return url
+        }
+        return Uri.EMPTY
+    }
+
+    private suspend fun uploadHotelImage(uri: Uri) : Uri {
+        if (uri.toString().isNotEmpty()) {
+            val urlTask = storageService.uploadFile(uri = uri, "hotel_images")
+            val url = urlTask.addOnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Timber.e("Upload of hotel image failed: ${task.exception}")
                 }
             }.await()
             return url

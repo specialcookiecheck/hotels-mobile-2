@@ -1,5 +1,6 @@
 package ie.setu.hotels.data.model
 
+import android.net.Uri
 import androidx.room.Entity
 import com.google.firebase.firestore.DocumentId
 import java.util.Date
@@ -8,11 +9,12 @@ import java.util.Date
 data class HotelModel(
     @DocumentId val _id: String = "N/A",
     val preferredPaymentType: String = "N/A",
+    val hotelName: String = "N/A",
     val roomRate: Int = 0,
-    var message: String = "Go Homer!",
+    var comment: String = "Not too bad!",
     val dateAddHotelAdded: Date = Date(),
     val dateModified: Date = Date(),
-    var email: String = "joe@bloggs.com",
+    var email: String = "vinc@test.com",
     var imageUri: String = "",
     var latitude: Double = 0.0,
     var longitude: Double = 0.0
@@ -21,9 +23,10 @@ data class HotelModel(
 val fakeHotels = List(30) { i ->
     HotelModel(
         _id = "12345" + i,
-        "PayPal $i",
+        "Cash $i",
+        "testHotel",
         i.toInt(),
-        "Message $i",
+        "Comment $i",
         Date(),
         Date()
     )

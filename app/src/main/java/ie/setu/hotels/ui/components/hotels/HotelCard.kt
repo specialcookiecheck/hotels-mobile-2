@@ -55,14 +55,17 @@ import java.util.Date
 
 @Composable
 fun HotelCard(
+    hotelName: String,
     preferredPaymentType: String,
     roomRate: Int,
-    message: String,
+    comment: String,
+    latitude: Double,
+    longitude: Double,
     dateCreated: String,
     dateModified: String,
     onClickDelete: () -> Unit,
     onClickHotelDetails: () -> Unit,
-    photoUri: Uri
+    imageUri: Uri
 ) {
     Card(
         border = BorderStroke(1.dp, Color.Black),
@@ -71,28 +74,35 @@ fun HotelCard(
         ),
         modifier = Modifier.padding(vertical = 2.dp, horizontal = 2.dp)
     ) {
-        HotelCardContent(preferredPaymentType,
+        HotelCardContent(
+            hotelName,
+            preferredPaymentType,
             roomRate,
-            message,
+            comment,
+            latitude,
+            longitude,
             dateCreated,
             dateModified,
             onClickDelete,
             onClickHotelDetails,
-            photoUri
+            imageUri
         )
     }
 }
 
 @Composable
 private fun HotelCardContent(
+    hotelName: String,
     preferredPaymentType: String,
     roomRate: Int,
-    message: String,
+    comment: String,
+    latitude: Double,
+    longitude: Double,
     dateCreated: String,
     dateModified: String,
     onClickDelete: () -> Unit,
     onClickHotelDetails: () -> Unit,
-    photoUri: Uri
+    imageUri: Uri
 ) {
     var expanded by remember { mutableStateOf(false) }
     var showDeleteConfirmDialog by remember { mutableStateOf(false) }
@@ -121,7 +131,7 @@ private fun HotelCardContent(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data(photoUri)
+                        .data(imageUri)
                         .crossfade(true)
                         .build(),
                     contentDescription = null,
@@ -130,21 +140,33 @@ private fun HotelCardContent(
                         .size(50.dp)
                         .clip(CircleShape)
                 )
+                Spacer(Modifier.weight(1f))
+                Text(
+                    text = hotelName, style = MaterialTheme.typography.headlineLarge.copy(
+                        fontWeight = FontWeight.Bold
+                    )
+                )
+            }
+            Text(
+                text = comment, style = MaterialTheme.typography.headlineMedium
+            )
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     modifier = Modifier.padding(start = 2.dp),
                     text = preferredPaymentType,
-                    style = MaterialTheme.typography.headlineMedium.copy(
-                        fontWeight = FontWeight.ExtraBold
-                    )
+                    style = MaterialTheme.typography.headlineSmall
                 )
                 Spacer(Modifier.weight(1f))
                 Text(
                     text = "€$roomRate",
-                    style = MaterialTheme.typography.headlineMedium.copy(
+                    style = MaterialTheme.typography.headlineSmall.copy(
                         fontWeight = FontWeight.ExtraBold
                     )
                 )
             }
+            Text(
+                text = "$latitude, $longitude", style = MaterialTheme.typography.labelSmall
+            )
             Text(
                 text = "AddHotelAdded $dateCreated", style = MaterialTheme.typography.labelSmall
             )
@@ -152,7 +174,7 @@ private fun HotelCardContent(
                 text = "Modified $dateModified", style = MaterialTheme.typography.labelSmall
             )
             if (expanded) {
-                Text(modifier = Modifier.padding(vertical = 16.dp), text = message)
+                Text(modifier = Modifier.padding(vertical = 16.dp), text = comment)
                 Row(modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween) {
                     FilledTonalButton(onClick = onClickHotelDetails) {
@@ -169,7 +191,6 @@ private fun HotelCardContent(
                         showDeleteAlert(
                             onDismiss = { showDeleteConfirmDialog = false },
                             onDelete = onClickDelete,
-//                            onRefresh = onRefreshList
                         )
                     }
                 }
@@ -202,7 +223,6 @@ fun showDeleteAlert(
             Button(
                 onClick = {
                     onDelete()
-                    //onRefresh()
                 }
             ) { Text("Yes") }
         },
@@ -218,17 +238,19 @@ fun showDeleteAlert(
 fun HotelCardPreview() {
     HotelsTheme {
         HotelCard(
+            hotelName = "Default hotel",
             preferredPaymentType = "Cash",
             roomRate = 100,
-            message = """
-                A message entered 
-                by the user..."
+            comment = """
+                Fav hotel comment"
             """.trimIndent(),
             dateCreated = DateFormat.getDateTimeInstance().format(Date()),
             dateModified = DateFormat.getDateTimeInstance().format(Date()),
             onClickDelete = { },
             onClickHotelDetails = {},
-            photoUri = Uri.EMPTY
+            imageUri = Uri.EMPTY,
+            latitude = 1.0,
+            longitude = -1.0,
         )
     }
 }

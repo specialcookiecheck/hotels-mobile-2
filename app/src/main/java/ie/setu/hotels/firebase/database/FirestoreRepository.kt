@@ -61,7 +61,7 @@ class FirestoreRepository
                 .delete().await()
     }
 
-    override suspend fun updatePhotoUris(email: String, uri: Uri) {
+    override suspend fun updateUserPhotoUris(email: String, uri: Uri) {
         firestore.collection(HOTEL_COLLECTION)
             .whereEqualTo(USER_EMAIL, email)
             .get()

@@ -1,5 +1,6 @@
 package ie.setu.hotels.ui.screens.addHotel
 
+import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,22 +25,27 @@ import ie.setu.hotels.data.model.fakeHotels
 import ie.setu.hotels.ui.components.addHotel.RoomRatePicker
 import ie.setu.hotels.ui.components.addHotel.AddHotelButton
 import ie.setu.hotels.ui.components.addHotel.CommentInput
+import ie.setu.hotels.ui.components.addHotel.HotelNameInput
 import ie.setu.hotels.ui.components.addHotel.ProgressBar
 import ie.setu.hotels.ui.components.addHotel.RadioButtonGroup
 import ie.setu.hotels.ui.components.addHotel.WelcomeText
+import ie.setu.hotels.ui.components.general.ShowHotelImagePicker
 import ie.setu.hotels.ui.screens.hotels.HotelsViewModel
 import ie.setu.hotels.ui.theme.HotelsTheme
 
 @Composable
 fun AddHotelScreen(modifier: Modifier = Modifier,
                    hotelsViewModel: HotelsViewModel = hiltViewModel(),
-                   name: String
+                   addHotelViewModel: AddHotelViewModel = hiltViewModel(),
+                   userName: String,
 ) {
+    var hotelName by remember { mutableStateOf("Hotel name") }
     var preferredPaymentType by remember { mutableStateOf("Credit Card") }
     var roomRate by remember { mutableIntStateOf(30) }
     var hotelComments by remember { mutableStateOf("NIIIIIIIIIICE!") }
     var totalAddHotelAdded by remember { mutableIntStateOf(0) }
     val hotels = hotelsViewModel.uiHotels.collectAsState().value
+    var imageUri: Uri? by remember { mutableStateOf(addHotelViewModel.imageUri) }
 
     totalAddHotelAdded = hotels.sumOf { it.roomRate }
 
@@ -51,7 +57,24 @@ fun AddHotelScreen(modifier: Modifier = Modifier,
             ),
             verticalArrangement = Arrangement.spacedBy(30.dp),
         ) {
-            WelcomeText(Modifier, name)
+            WelcomeText(Modifier, userName)
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            )
+            {
+                ShowHotelImagePicker(
+                    onImageUriChanged = {
+                        imageUri = it
+                        addHotelViewModel.updateImageUri(imageUri!!)
+                    }
+                )
+
+                Spacer(modifier.weight(1f))
+            }
+            HotelNameInput(
+                modifier = modifier,
+                onHotelNameChange = { hotelName = it }
+            )
             Row(
                 verticalAlignment = Alignment.CenterVertically,
             )
@@ -65,18 +88,25 @@ fun AddHotelScreen(modifier: Modifier = Modifier,
                     onRoomRateAmountChange = { roomRate = it }
                 )
             }
+            /*
             ProgressBar(
                 modifier = modifier,
                 totalAddHotelAdded = totalAddHotelAdded)
+
+             */
             CommentInput(
                 modifier = modifier,
                 onCommentChange = { hotelComments = it }
             )
             AddHotelButton (
                 modifier = modifier,
-                hotel = HotelModel(preferredPaymentType = preferredPaymentType,
+                hotel = HotelModel(
+                    hotelName = hotelName,
+                    preferredPaymentType = preferredPaymentType,
                     roomRate = roomRate,
-                    message = hotelComments),
+                    comment = hotelComments,
+                    imageUri = imageUri.toString()
+                ),
                 onTotalAddHotelAddedChange = { totalAddHotelAdded = it }
             )
         }
@@ -96,9 +126,10 @@ fun AddHotelScreenPreview() {
 fun PreviewAddHotelScreen(modifier: Modifier = Modifier,
                         hotels: SnapshotStateList<HotelModel>
 ) {
+    var hotelName by remember { mutableStateOf("Hotel name") }
     var preferredPaymentType by remember { mutableStateOf("Credit Card") }
     var roomRate by remember { mutableIntStateOf(10) }
-    var hotelComments by remember { mutableStateOf("Go Homer!") }
+    var hotelComments by remember { mutableStateOf("CommentA on HotelB") }
     var totalAddHotelAdded by remember { mutableIntStateOf(0) }
 
     totalAddHotelAdded = hotels.sumOf { it.roomRate }
@@ -112,6 +143,10 @@ fun PreviewAddHotelScreen(modifier: Modifier = Modifier,
             verticalArrangement = Arrangement.spacedBy(30.dp),
         ) {
             WelcomeText(modifier, "VincDefault")
+            HotelNameInput(
+                modifier = modifier,
+                onHotelNameChange = { hotelName = it }
+            )
             Row(
                 verticalAlignment = Alignment.CenterVertically,
             )
@@ -134,9 +169,11 @@ fun PreviewAddHotelScreen(modifier: Modifier = Modifier,
             )
             AddHotelButton (
                 modifier = modifier,
-                hotel = HotelModel(preferredPaymentType = preferredPaymentType,
+                hotel = HotelModel(
+                    hotelName = hotelName,
+                    preferredPaymentType = preferredPaymentType,
                     roomRate = roomRate,
-                    message = hotelComments),
+                    comment = hotelComments),
                 onTotalAddHotelAddedChange = { totalAddHotelAdded = it }
             )
         }

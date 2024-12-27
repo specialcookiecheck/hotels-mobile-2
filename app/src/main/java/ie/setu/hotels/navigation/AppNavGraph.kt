@@ -24,7 +24,7 @@ fun NavHostProvider(
     startDestination: AppDestination,
     paddingValues: PaddingValues,
     permissions: Boolean,
-    name: String,
+    userName: String,
 ) {
     NavHost(
         navController = navController,
@@ -32,19 +32,16 @@ fun NavHostProvider(
         modifier = Modifier.padding(paddingValues = paddingValues)) {
 
         composable(route = AddHotel.route) {
-            //call our 'AddHotel' Screen Here
             AddHotelScreen(
                 modifier = modifier,
-                name = name
+                userName = userName
                 )
         }
 
         composable(route = Home.route) {
-            //call our 'Home' Screen Here
             HomeScreen(modifier = modifier)
         }
         composable(route = Hotels.route) {
-            //call our 'Hotels' Screen Here
             HotelsScreen(modifier = modifier,
                 onClickHotelDetails = {
                     hotelId : String ->

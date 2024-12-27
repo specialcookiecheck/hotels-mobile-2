@@ -1,23 +1,23 @@
 <resources>
         <string name="app_name">Hotels!</string>
-        <string name="addHotelTitle">Welcome Homer</string>
-        <string name="addHotelSubtitle">Please Give Generously</string>
-        <string name="addHotelButton">AddHotel</string>
-        <string name="credit_card">PayPal</string>
+        <string name="addHotelTitle">Welcome to Hotels!</string>
+        <string name="addHotelSubtitle">Your favourite hotels in one place!</string>
+        <string name="addHotelButton">Add Hotel</string>
+        <string name="credit_card">Credit Card</string>
         <string name="cash">Cash</string>
         <string name="amount">Amount</string>
         <string name="total">Total : </string>
         <string name="totalSoFar">€%d</string>
         <string name="limitExceeded">"A Hotel of €%d will exceed Maximum Hotels of €10000"</string>
-        <string name="hotelsTitle">Hotels List</string>
+        <string name="hotelsTitle">Your favourite Hotels!</string>
         <string name="defaultAmount">00</string>
         <string name="defaultMethod">N/A</string>
-        <string name="defaultMessage">Go Homer!</string>
+        <string name="defaultMessage">Default message?!</string>
         <string name="show_less">Show Less</string>
         <string name="show_more">Show More</string>
         <string name="empty_list">No Hotels Yet - Go make a Hotel!</string>
-        <string name="about_title">Homer for President !!</string>
-        <string name="about_message">Hi, I\'m Homer\n\nPlease vote for me.\n\n Please Please Please Please!!</string>
+        <string name="about_title">This is about us!</string>
+        <string name="about_message">This is an about about us. What are you all about?</string>
         <string name="confirm_delete">Confirm Delete?</string>
         <string name="confirm_delete_message">Are you sure you want to delete this hotel?</string>
 
@@ -42,4 +42,5 @@
         <string name="hotel_credit">Hotel Credit</string>
         <string name="traveller_cheques">Traveller Cheques</string>
         <string name="enter_comment">Comments on the hotel?</string>
+        <string name="enter_hotel_name">Enter Hotel name</string>
 </resources>

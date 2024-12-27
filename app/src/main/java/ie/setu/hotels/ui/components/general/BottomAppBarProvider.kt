@@ -40,10 +40,10 @@ fun BottomAppBarProvider(
             NavigationBarItem(
                 selected = navigationItem == currentScreen,
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = MaterialTheme.colorScheme.secondary,
+                    selectedIconColor = White,
                     selectedTextColor = White,
-                    unselectedIconColor = White,
-                    unselectedTextColor = Black
+                    unselectedIconColor = MaterialTheme.colorScheme.secondary,
+                    unselectedTextColor = MaterialTheme.colorScheme.secondary
                 ),
                 label = { Text(text = navigationItem.label) },
                 icon = { Icon(navigationItem.icon, contentDescription = navigationItem.label) },

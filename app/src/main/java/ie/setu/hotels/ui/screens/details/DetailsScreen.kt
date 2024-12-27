@@ -98,13 +98,13 @@ fun DetailsScreen(
             ReadOnlyTextField(value = hotel.dateAddHotelAdded.toString(),
                 label = "Date AddHotelAdded")
             //Message Field
-            text = hotel.message
+            text = hotel.comment
             OutlinedTextField(modifier = Modifier.fillMaxWidth(),
                 value = text,
                 onValueChange = {
                     text = it
                     validate(text)
-                    hotel.message = text
+                    hotel.comment = text
                 },
                 maxLines = 2,
                 label = { Text(text = "Message") },
@@ -239,13 +239,13 @@ fun PreviewDetailScreen(modifier: Modifier) {
             )
             //  Log.i("VM Call","Message is : ${hotel.message}")
             //Message Field
-            text = hotel.message
+            text = hotel.comment
             OutlinedTextField(modifier = Modifier.fillMaxWidth(),
                 value = text,
                 onValueChange = {
                     text = it
                     validate(text)
-                    hotel.message = text
+                    hotel.comment = text
                 },
                 maxLines = 2,
                 label = { Text(text = "Message") },

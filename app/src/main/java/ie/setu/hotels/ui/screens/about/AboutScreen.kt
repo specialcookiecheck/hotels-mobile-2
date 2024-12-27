@@ -27,20 +27,21 @@ import ie.setu.hotels.ui.theme.HotelsTheme
 fun AboutScreen(modifier: Modifier = Modifier) {
 
     Column(
-            modifier = modifier.background(MaterialTheme.colorScheme.secondary),
+            // modifier = modifier.background(MaterialTheme.colorScheme.primary),
         ) {
             Centre(Modifier
                     .fillMaxWidth()
                 .padding(top = 48.dp,)
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.aboutus_homer),
-                    contentDescription = "homer image",
+                    // painter = painterResource(id = R.drawable.aboutus_homer_1),
+                    painter = painterResource(id = R.drawable.about_hotels),
+                    contentDescription = "about image",
                     modifier = Modifier.size(350.dp)
                 )
             }
             Centre(Modifier.fillMaxSize()) {
-                Text(color = Color.White,
+                Text(color = Color.Black,
                     fontWeight = FontWeight.Bold,
                     fontSize = 30.sp,
                     lineHeight = 34.sp,

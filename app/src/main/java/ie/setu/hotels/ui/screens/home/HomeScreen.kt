@@ -89,7 +89,7 @@ fun HomeScreen(modifier: Modifier = Modifier,
                 permissions = mapViewModel
                     .hasPermissions
                     .collectAsState().value,
-                name = userName!!,
+                userName = userName!!,
             )
         },
         bottomBar = {

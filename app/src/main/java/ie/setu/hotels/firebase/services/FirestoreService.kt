@@ -14,5 +14,5 @@ interface FirestoreService {
     suspend fun insert(email: String, hotel: Hotel)
     suspend fun update(email: String, hotel: Hotel)
     suspend fun delete(email: String, hotelId: String)
-    suspend fun updatePhotoUris(email: String, uri: Uri)
+    suspend fun updateUserPhotoUris(email: String, uri: Uri)
 }

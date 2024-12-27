@@ -48,20 +48,20 @@ fun TopAppBarProvider(
             Column {
                 Text(
                     text = currentScreen.label,
-                    color = Color.White
+                    color = MaterialTheme.colorScheme.secondary
                 )
                 Row {
                     if (name.isNotEmpty())
                         Text(
                             text = name,
-                            color = MaterialTheme.colorScheme.tertiaryContainer,
+                            color = MaterialTheme.colorScheme.secondary,
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Bold
                         )
                     if (email.isNotEmpty())
                         Text(
                             text = " ($email)",
-                            color = Color.LightGray,
+                            color = MaterialTheme.colorScheme.secondary,
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Bold
                         )

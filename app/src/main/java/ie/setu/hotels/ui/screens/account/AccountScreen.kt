@@ -29,11 +29,11 @@ import ie.setu.hotels.ui.screens.register.RegisterViewModel
 @Composable
 fun ProfileScreen(
     onSignOut: () -> Unit = {},
-    profileViewModel: ProfileViewModel = hiltViewModel(),
+    accountViewModel: ProfileViewModel = hiltViewModel(),
     loginViewModel: LoginViewModel = hiltViewModel(),
     registerViewModel: RegisterViewModel = hiltViewModel()
 ) {
-    var photoUri: Uri? by remember { mutableStateOf(profileViewModel.photoUri) }
+    var photoUri: Uri? by remember { mutableStateOf(accountViewModel.photoUri) }
 
     Column(
         Modifier.fillMaxSize(),
@@ -46,18 +46,18 @@ fun ProfileScreen(
         if(photoUri.toString().isNotEmpty())
             ProfileContent(
                 photoUri = photoUri,
-                displayName = profileViewModel.displayName,
-                email = profileViewModel.email
+                displayName = accountViewModel.displayName,
+                email = accountViewModel.email
             )
         ShowPhotoPicker(
             onPhotoUriChanged = {
                 photoUri = it
-                profileViewModel.updatePhotoUri(photoUri!!)
+                accountViewModel.updateUserPhotoUri(photoUri!!)
             }
         )
         Button(
             onClick = {
-                profileViewModel.signOut()
+                accountViewModel.signOut()
                 onSignOut()
                 loginViewModel.resetLoginFlow()
                 registerViewModel.resetRegisterFlow()
