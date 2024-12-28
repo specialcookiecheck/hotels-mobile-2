@@ -49,10 +49,10 @@ fun DetailsScreen(
     detailViewModel: DetailsViewModel = hiltViewModel()
 ) {
     val hotel = detailViewModel.hotel.value
-    val errorEmptyMessage = "Message Cannot be Empty..."
-    val errorShortMessage = "Message must be at least 2 characters"
+    val errorEmptyComment = "Comment Cannot be Empty..."
+    val errorShortComment = "Comment must be at least 2 characters"
     var text by rememberSaveable { mutableStateOf("") }
-    var onMessageChanged by rememberSaveable { mutableStateOf(false) }
+    var onCommentChanged by rememberSaveable { mutableStateOf(false) }
     var isEmptyError by rememberSaveable { mutableStateOf(false) }
     var isShortError by rememberSaveable { mutableStateOf(false) }
 
@@ -66,7 +66,7 @@ fun DetailsScreen(
     fun validate(text: String) {
         isEmptyError = text.isEmpty()
         isShortError = text.length < 2
-        onMessageChanged = !(isEmptyError || isShortError)
+        onCommentChanged = !(isEmptyError || isShortError)
     }
 
     if(isError)
@@ -88,16 +88,14 @@ fun DetailsScreen(
             ),
         )
         {
-            //Payment Type Field
+            ReadOnlyTextField(value = hotel.hotelName,
+                label = "Hotel Name")
             ReadOnlyTextField(value = hotel.preferredPaymentType,
-                label = "Payment Type")
-            //Payment Amount Field
+                label = "Preferred Payment Type")
             ReadOnlyTextField(value = "€" + hotel.roomRate.toString(),
-                label = "Payment Amount")
-            //Date AddHotelAdded Field
+                label = "Room Rate")
             ReadOnlyTextField(value = hotel.dateAddHotelAdded.toString(),
-                label = "Date AddHotelAdded")
-            //Message Field
+                label = "Date Hotel added")
             text = hotel.comment
             OutlinedTextField(modifier = Modifier.fillMaxWidth(),
                 value = text,
@@ -107,13 +105,13 @@ fun DetailsScreen(
                     hotel.comment = text
                 },
                 maxLines = 2,
-                label = { Text(text = "Message") },
+                label = { Text(text = "Comment") },
                 isError = isEmptyError || isShortError,
                 supportingText = {
                     if (isEmptyError) {
                         Text(
                             modifier = Modifier.fillMaxWidth(),
-                            text = errorEmptyMessage,
+                            text = errorEmptyComment,
                             color = MaterialTheme.colorScheme.error
                         )
                     }
@@ -121,7 +119,7 @@ fun DetailsScreen(
                         if (isShortError) {
                             Text(
                                 modifier = Modifier.fillMaxWidth(),
-                                text = errorShortMessage,
+                                text = errorShortComment,
                                 color = MaterialTheme.colorScheme.error
                             )
                         }
@@ -140,15 +138,14 @@ fun DetailsScreen(
                     unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
                 )
             )
-            //End of Message Field
             Spacer(modifier.height(height = 48.dp))
             Button(
                 onClick = {
                     detailViewModel.updateHotel(hotel)
-                    onMessageChanged = false
+                    onCommentChanged = false
                 },
                 elevation = ButtonDefaults.buttonElevation(20.dp),
-                enabled = onMessageChanged
+                enabled = onCommentChanged
             ){
                 Icon(Icons.Default.Save, contentDescription = "Save")
                 Spacer(modifier.width(width = 8.dp))
@@ -175,17 +172,17 @@ fun DetailScreenPreview() {
 fun PreviewDetailScreen(modifier: Modifier) {
 
     val hotel = HotelModel()
-    val errorEmptyMessage = "Message Cannot be Empty..."
-    val errorShortMessage = "Message must be at least 2 characters"
+    val errorEmptyComment = "Comment Cannot be Empty..."
+    val errorShortComment = "Comment must be at least 2 characters"
     var text by rememberSaveable { mutableStateOf("") }
-    var onMessageChanged by rememberSaveable { mutableStateOf(false) }
+    var onCommentChanged by rememberSaveable { mutableStateOf(false) }
     var isEmptyError by rememberSaveable { mutableStateOf(false) }
     var isShortError by rememberSaveable { mutableStateOf(false) }
 
     fun validate(text: String) {
         isEmptyError = text.isEmpty()
         isShortError = text.length < 2
-        onMessageChanged = true
+        onCommentChanged = true
     }
 
     Column(
@@ -196,7 +193,6 @@ fun PreviewDetailScreen(modifier: Modifier) {
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         DetailsScreenText()
-        //           Row (modifier = Modifier.fillMaxSize()) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
@@ -207,7 +203,15 @@ fun PreviewDetailScreen(modifier: Modifier) {
                 ),
         )
         {
-            //Payment Type Field
+            OutlinedTextField(modifier = modifier.fillMaxWidth(),
+                value = hotel.hotelName,
+                onValueChange = { },
+                label = { Text(text = "Hotel Name") },
+                readOnly = true,
+                colors = OutlinedTextFieldDefaults.colors(
+                    unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
+                )
+            )
             OutlinedTextField(modifier = modifier.fillMaxWidth(),
                 value = hotel.preferredPaymentType,
                 onValueChange = { },
@@ -217,7 +221,6 @@ fun PreviewDetailScreen(modifier: Modifier) {
                     unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
                 )
             )
-            //Payment Amount Field
             OutlinedTextField(modifier = modifier.fillMaxWidth(),
                 value = "€" + hotel.roomRate.toString(),
                 onValueChange = { },
@@ -227,7 +230,6 @@ fun PreviewDetailScreen(modifier: Modifier) {
                     unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
                 )
             )
-            //Date AddHotelAdded Field
             OutlinedTextField(modifier = modifier.fillMaxWidth(),
                 value = hotel.dateAddHotelAdded.toString(),
                 onValueChange = { },
@@ -237,8 +239,6 @@ fun PreviewDetailScreen(modifier: Modifier) {
                     unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
                 )
             )
-            //  Log.i("VM Call","Message is : ${hotel.message}")
-            //Message Field
             text = hotel.comment
             OutlinedTextField(modifier = Modifier.fillMaxWidth(),
                 value = text,
@@ -248,13 +248,13 @@ fun PreviewDetailScreen(modifier: Modifier) {
                     hotel.comment = text
                 },
                 maxLines = 2,
-                label = { Text(text = "Message") },
+                label = { Text(text = "Comment") },
                 isError = isEmptyError || isShortError,
                 supportingText = {
                     if (isEmptyError) {
                         Text(
                             modifier = Modifier.fillMaxWidth(),
-                            text = errorEmptyMessage,
+                            text = errorEmptyComment,
                             color = MaterialTheme.colorScheme.error
                         )
                     }
@@ -262,7 +262,7 @@ fun PreviewDetailScreen(modifier: Modifier) {
                         if (isShortError) {
                             Text(
                                 modifier = Modifier.fillMaxWidth(),
-                                text = errorShortMessage,
+                                text = errorShortComment,
                                 color = MaterialTheme.colorScheme.error
                             )
                         }
@@ -272,7 +272,7 @@ fun PreviewDetailScreen(modifier: Modifier) {
                         Icon(Icons.Filled.Warning,"error", tint = MaterialTheme.colorScheme.error)
                     else
                         Icon(
-                            Icons.Default.Edit, contentDescription = "add/edit",
+                            Icons.Default.Edit, contentDescription = "add or edit",
                             tint = Color.Black
                         )
                 },
@@ -284,10 +284,10 @@ fun PreviewDetailScreen(modifier: Modifier) {
             Spacer(modifier.height(height = 48.dp))
             Button(
                 onClick = {
-                    onMessageChanged = false
+                    onCommentChanged = false
                 },
                 elevation = ButtonDefaults.buttonElevation(20.dp),
-                enabled = onMessageChanged
+                enabled = onCommentChanged
             ){
                 Icon(Icons.Default.Save, contentDescription = "Save")
                 Spacer(modifier.width(width = 8.dp))

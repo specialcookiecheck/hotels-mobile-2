@@ -27,16 +27,13 @@ fun BottomAppBarProvider(
     currentScreen: AppDestination,
     userDestinations: List<AppDestination>
 ) {
-    //initializing the default selected item
     var navigationSelectedItem by remember { mutableIntStateOf(0) }
 
     NavigationBar(
         containerColor = MaterialTheme.colorScheme.primary,
         contentColor = MaterialTheme.colorScheme.onSecondary,
         ) {
-        //getting the list of bottom navigation items
         userDestinations.forEachIndexed { index, navigationItem ->
-            //iterating all items with their respective indexes
             NavigationBarItem(
                 selected = navigationItem == currentScreen,
                 colors = NavigationBarItemDefaults.colors(

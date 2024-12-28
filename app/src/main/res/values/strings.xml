@@ -9,7 +9,7 @@
         <string name="total">Total : </string>
         <string name="totalSoFar">€%d</string>
         <string name="limitExceeded">"A Hotel of €%d will exceed Maximum Hotels of €10000"</string>
-        <string name="hotelsTitle">Your favourite Hotels!</string>
+        <string name="hotelsTitle">Your favourite Hotels</string>
         <string name="defaultAmount">00</string>
         <string name="defaultMethod">N/A</string>
         <string name="defaultMessage">Default message?!</string>

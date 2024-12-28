@@ -56,7 +56,6 @@ import timber.log.Timber
 fun HotelCardPreview() {
     HotelsTheme {
         Column {
-            //HeadingTextComponent("A Heading")
             HeadingLogoComponent()
             CheckboxComponent(value = "My Text", onTextSelected = {}, onCheckedChange ={} )
         }
@@ -145,7 +144,8 @@ fun HeadingTextComponent(value: String) {
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
             fontStyle = FontStyle.Normal
-        ), color = colorResource(id = R.color.black),
+        ),
+        color = MaterialTheme.colorScheme.primary,
         textAlign = TextAlign.Center
     )
 }

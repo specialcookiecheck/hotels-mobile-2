@@ -42,20 +42,20 @@ fun NavHostProvider(
             HomeScreen(modifier = modifier)
         }
         composable(route = Hotels.route) {
-            HotelsScreen(modifier = modifier,
+            HotelsScreen(
+                modifier = modifier,
                 onClickHotelDetails = {
                     hotelId : String ->
                     navController.navigateToHotelDetails(hotelId)
                 },
+                userName = userName
             )
         }
         composable(route = About.route) {
-            //call our 'About' Screen Here
             AboutScreen(modifier = modifier)
         }
 
         composable(route = Login.route) {
-            //call our 'Login' Screen Here
             LoginScreen(
                 navController = navController,
                 onLogin = { navController.popBackStack() }
@@ -63,7 +63,6 @@ fun NavHostProvider(
         }
 
         composable(route = Register.route) {
-            //call our 'Register' Screen Here
             RegisterScreen(
                 navController = navController,
                 onRegister = { navController.popBackStack() }
@@ -93,7 +92,6 @@ fun NavHostProvider(
         }
 
         composable(route = Map.route) {
-            //call our 'Map' Screen Here
             MapScreen(permissions = permissions)
         }
     }

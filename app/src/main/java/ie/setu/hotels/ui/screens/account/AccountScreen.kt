@@ -40,7 +40,9 @@ fun ProfileScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
-        HeadingTextComponent(value = stringResource(id = R.string.account_settings))
+        HeadingTextComponent(
+            value = stringResource(id = R.string.account_settings),
+            )
         Spacer(modifier = Modifier.height(10.dp))
 
         if(photoUri.toString().isNotEmpty())

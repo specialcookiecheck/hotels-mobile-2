@@ -68,7 +68,7 @@ fun HotelCard(
     imageUri: Uri
 ) {
     Card(
-        border = BorderStroke(1.dp, Color.Black),
+        border = BorderStroke(1.dp, Color.White),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.secondary
         ),
@@ -148,6 +148,9 @@ private fun HotelCardContent(
                 )
             }
             Text(
+                text = "$latitude, $longitude", style = MaterialTheme.typography.headlineSmall
+            )
+            Text(
                 text = comment, style = MaterialTheme.typography.headlineMedium
             )
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -164,9 +167,6 @@ private fun HotelCardContent(
                     )
                 )
             }
-            Text(
-                text = "$latitude, $longitude", style = MaterialTheme.typography.labelSmall
-            )
             Text(
                 text = "AddHotelAdded $dateCreated", style = MaterialTheme.typography.labelSmall
             )

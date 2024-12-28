@@ -16,7 +16,7 @@ import java.text.DateFormat
 internal fun HotelCardList(
     hotels: List<HotelModel>,
     onDeleteHotel: (HotelModel) -> Unit,
-    onClickHotelDetails: (String) -> Unit
+    onClickHotelDetails: (String) -> Unit,
 ) {
     LazyColumn {
         items(
@@ -49,7 +49,7 @@ fun HotelCardListPreview() {
     HotelsTheme {
         HotelCardList(
             fakeHotels.toMutableStateList(),
-            onDeleteHotel = {}
+            onDeleteHotel = {},
         ) { }
     }
     }

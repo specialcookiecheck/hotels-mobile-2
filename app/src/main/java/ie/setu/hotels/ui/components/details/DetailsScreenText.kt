@@ -26,13 +26,13 @@ fun DetailsScreenText(modifier: Modifier = Modifier) {
             text = "Hotel Details",
             fontWeight = FontWeight.Bold,
             fontSize = 28.sp,
-            color = Color.Black
+            color = MaterialTheme.colorScheme.primary
         )
         Text(
             text = "Please Update your Message Below",
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp,
-            color = MaterialTheme.colorScheme.tertiary
+            color = MaterialTheme.colorScheme.primary
         )
     }
 }

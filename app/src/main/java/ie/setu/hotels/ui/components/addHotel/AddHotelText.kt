@@ -10,13 +10,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import ie.setu.hotels.R
 import ie.setu.hotels.ui.screens.map.MapViewModel
 import ie.setu.hotels.ui.theme.HotelsTheme
 
@@ -43,14 +41,14 @@ fun WelcomeText(
             text = ("$name, your new favourite?!"),
             fontWeight = FontWeight.Bold,
             fontSize = 28.sp,
-            color = Color.Black
+            color = MaterialTheme.colorScheme.primary
         )
         Text(
             // text = stringResource(R.string.addHotelSubtitle),
             text = ("$locationLatLng"),
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp,
-            color = MaterialTheme.colorScheme.tertiary
+            color = MaterialTheme.colorScheme.primary
         )
     }
 }

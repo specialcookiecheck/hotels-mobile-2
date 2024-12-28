@@ -26,22 +26,20 @@ import ie.setu.hotels.ui.theme.HotelsTheme
 @Composable
 fun AboutScreen(modifier: Modifier = Modifier) {
 
-    Column(
-            // modifier = modifier.background(MaterialTheme.colorScheme.primary),
-        ) {
+    Column {
             Centre(Modifier
                     .fillMaxWidth()
                 .padding(top = 48.dp,)
             ) {
                 Image(
-                    // painter = painterResource(id = R.drawable.aboutus_homer_1),
                     painter = painterResource(id = R.drawable.about_hotels),
                     contentDescription = "about image",
                     modifier = Modifier.size(350.dp)
                 )
             }
             Centre(Modifier.fillMaxSize()) {
-                Text(color = Color.Black,
+                Text(
+                    color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.Bold,
                     fontSize = 30.sp,
                     lineHeight = 34.sp,

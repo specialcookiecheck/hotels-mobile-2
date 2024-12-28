@@ -32,7 +32,9 @@ import timber.log.Timber
 @Composable
 fun HotelsScreen(modifier: Modifier = Modifier,
                  onClickHotelDetails: (String) -> Unit,
-                 hotelsViewModel: HotelsViewModel = hiltViewModel()) {
+                 hotelsViewModel: HotelsViewModel = hiltViewModel(),
+                 userName: String
+) {
 
     val hotels = hotelsViewModel.uiHotels.collectAsState().value
     val isError = hotelsViewModel.iserror.value
@@ -53,7 +55,7 @@ fun HotelsScreen(modifier: Modifier = Modifier,
             ),
         ) {
             if(isLoading) ShowLoader("Loading Hotels...")
-            HotelsText()
+            HotelsText(modifier, userName)
 //            if(!isError)
 //                ShowRefreshList(onClick = { hotelsViewModel.getHotels() })
             if (hotels.isEmpty() && !isError)
@@ -109,7 +111,7 @@ fun PreviewHotelsScreen(modifier: Modifier = Modifier,
                 end = 24.dp
             ),
         ) {
-            HotelsText()
+            HotelsText(userName = "VincPreview")
             if(hotels.isEmpty())
                 Centre(Modifier.fillMaxSize()) {
                     Text(color = MaterialTheme.colorScheme.secondary,
