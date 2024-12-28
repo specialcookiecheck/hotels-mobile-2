@@ -8,9 +8,9 @@ import java.util.Date
 @Entity
 data class HotelModel(
     @DocumentId val _id: String = "N/A",
-    val preferredPaymentType: String = "N/A",
-    val hotelName: String = "N/A",
-    val roomRate: Int = 0,
+    var preferredPaymentType: String = "N/A",
+    var hotelName: String = "N/A",
+    var roomRate: Int = 0,
     var comment: String = "Not too bad!",
     val dateAddHotelAdded: Date = Date(),
     val dateModified: Date = Date(),
