@@ -44,12 +44,10 @@ fun AddHotelButton(
     addHotelViewModel: AddHotelViewModel = hiltViewModel(),
     hotelsViewModel: HotelsViewModel = hiltViewModel(),
     mapViewModel: MapViewModel = hiltViewModel(),
-    onTotalAddHotelAddedChange: (Int) -> Unit
 ) {
     val hotels = hotelsViewModel.uiHotels.collectAsState().value
-    var totalAddHotelAdded = hotels.sumOf { it.roomRate }
     val context = LocalContext.current
-    val comment = stringResource(R.string.limitExceeded,hotel.roomRate)
+    stringResource(R.string.limitExceeded,hotel.roomRate)
 
     val isError = addHotelViewModel.isErr.value
     val error = addHotelViewModel.error.value
@@ -66,25 +64,16 @@ fun AddHotelButton(
         Button(
             onClick = {
                 i("button clicked")
-                if(totalAddHotelAdded + hotel.roomRate <= 10000) {
-                    i("'if' applies")
-                    i("hotel: $hotel")
-                    totalAddHotelAdded+=hotel.roomRate
-                    onTotalAddHotelAddedChange(totalAddHotelAdded)
-                    val hotelLatLng = hotel.copy(
-                        latitude = locationLatLng.latitude,
-                        longitude = locationLatLng.longitude
-                    )
-                    addHotelViewModel.insert(hotelLatLng)
-                }
-                else
-                    i("'else' applies")
-                    Toast.makeText(context,comment,
-                        Toast.LENGTH_SHORT).show()
+                i("hotel: $hotel")
+                val hotelLatLng = hotel.copy(
+                    latitude = locationLatLng.latitude,
+                    longitude = locationLatLng.longitude
+                )
+                addHotelViewModel.insert(hotelLatLng)
             },
             elevation = ButtonDefaults.buttonElevation(20.dp)
         ) {
-            Icon(Icons.Default.Add, contentDescription = "AddHotel")
+            Icon(Icons.Default.Add, contentDescription = "Add Hotel")
             Spacer(modifier.width(width = 4.dp))
             Text(
                 text = stringResource(R.string.addHotelButton),
@@ -93,29 +82,6 @@ fun AddHotelButton(
                 color = Color.White
             )
         }
-        Spacer(modifier.weight(1f))
-        Text(
-            buildAnnotatedString {
-                withStyle(
-                    style = SpanStyle(
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp,
-                        color = Color.Black
-                    )
-                ) {
-                    append(stringResource(R.string.total) + " €")
-                }
-
-
-                withStyle(
-                    style = SpanStyle(
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp,
-                        color = MaterialTheme.colorScheme.secondary)
-                ) {
-                    append(totalAddHotelAdded.toString())
-                }
-            })
     }
 
     i("AddHotel Button = : ${error.message}")

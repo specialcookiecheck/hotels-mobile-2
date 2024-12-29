@@ -1,6 +1,7 @@
 package ie.setu.hotels.ui.screens.details
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,6 +26,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -40,10 +42,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import ie.setu.hotels.data.model.HotelModel
 import ie.setu.hotels.ui.components.details.DetailsScreenText
 import ie.setu.hotels.ui.components.details.ReadOnlyTextField
+import ie.setu.hotels.ui.components.general.HotelImagePicker
 import ie.setu.hotels.ui.components.general.ShowLoader
 import ie.setu.hotels.ui.theme.HotelsTheme
 import timber.log.Timber.Forest.i
-import kotlin.reflect.typeOf
+
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -55,6 +58,9 @@ fun DetailsScreen(
     val inputErrorMessage = "Invalid input, unable to save!"
     val errorShortComment = "Comment must be at least 2 characters"
     var hotelNameText by rememberSaveable { mutableStateOf("") }
+    var hotelCityText by rememberSaveable { mutableStateOf("") }
+    var hotelEmailText by rememberSaveable { mutableStateOf("") }
+    var hotelPhoneText by rememberSaveable { mutableStateOf("") }
     var hotelPreferredPaymentText by rememberSaveable { mutableStateOf("") }
     var hotelRoomRateText by rememberSaveable { mutableStateOf("") }
     var commentText by rememberSaveable { mutableStateOf("") }
@@ -63,6 +69,7 @@ fun DetailsScreen(
     var isShortError by rememberSaveable { mutableStateOf(false) }
     var isLowError by rememberSaveable { mutableStateOf(false) }
     var isNotIntError by rememberSaveable { mutableStateOf(false) }
+
 
     val context = LocalContext.current
     val isError = detailViewModel.isErr.value
@@ -110,9 +117,8 @@ fun DetailsScreen(
             start = 24.dp,
             end = 24.dp,
         ),
-        verticalArrangement = Arrangement.spacedBy(10.dp),
+        verticalArrangement = Arrangement.spacedBy(1.dp),
     ) {
-        DetailsScreenText()
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize().padding(
@@ -161,6 +167,149 @@ fun DetailsScreen(
                         )
                 },
                 keyboardActions = KeyboardActions { validateString(hotelNameText) },
+                colors = OutlinedTextFieldDefaults.colors(
+                    unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
+                )
+            )
+
+            // hotel city edit
+            hotelCityText = hotel.hotelCity
+            OutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = hotelCityText,
+                onValueChange = {
+                    hotelCityText = it
+                    validateString(hotelCityText)
+                    hotel.hotelCity = hotelCityText
+                },
+                maxLines = 2,
+                label = { Text(text = "Hotel City") },
+                isError = isEmptyError || isShortError,
+                supportingText = {
+                    if (isEmptyError) {
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = inputErrorMessage,
+                            color = MaterialTheme.colorScheme.error
+                        )
+                    }
+                    else
+                        if (isShortError) {
+                            Text(
+                                modifier = Modifier.fillMaxWidth(),
+                                text = errorShortComment,
+                                color = MaterialTheme.colorScheme.error
+                            )
+                        }
+                },
+                trailingIcon = {
+                    if (isEmptyError || isShortError)
+                        Icon(Icons.Filled.Warning,"error", tint = MaterialTheme.colorScheme.error)
+                    else
+                        Icon(
+                            Icons.Default.Edit, contentDescription = "add or edit",
+                            tint = Color.Black
+                        )
+                },
+                keyboardActions = KeyboardActions { validateString(hotelCityText) },
+                colors = OutlinedTextFieldDefaults.colors(
+                    unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
+                )
+            )
+
+            // hotel email edit
+            hotelEmailText = hotel.hotelEmail
+            OutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = hotelEmailText,
+                onValueChange = {
+                    hotelNameText = it
+                    validateString(hotelEmailText)
+                    hotel.hotelEmail = hotelEmailText
+                },
+                maxLines = 2,
+                label = { Text(text = "Hotel Name") },
+                isError = isEmptyError || isShortError,
+                supportingText = {
+                    if (isEmptyError) {
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = inputErrorMessage,
+                            color = MaterialTheme.colorScheme.error
+                        )
+                    }
+                    else
+                        if (isShortError) {
+                            Text(
+                                modifier = Modifier.fillMaxWidth(),
+                                text = errorShortComment,
+                                color = MaterialTheme.colorScheme.error
+                            )
+                        }
+                },
+                trailingIcon = {
+                    if (isEmptyError || isShortError)
+                        Icon(Icons.Filled.Warning,"error", tint = MaterialTheme.colorScheme.error)
+                    else
+                        Icon(
+                            Icons.Default.Edit, contentDescription = "add or edit",
+                            tint = Color.Black
+                        )
+                },
+                keyboardActions = KeyboardActions { validateString(hotelEmailText) },
+                colors = OutlinedTextFieldDefaults.colors(
+                    unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
+                )
+            )
+
+            // hotel phone edit
+            hotelPhoneText = hotel.hotelPhone.toString()
+            OutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = hotelPhoneText,
+                onValueChange = {
+                    hotelPhoneText = it
+                    validateInt(hotelPhoneText)
+                    if (hotelPhoneText.isNotEmpty() && hotelPhoneText.isDigitsOnly()) {
+                        hotel.hotelPhone = hotelPhoneText.toInt()
+                    }
+                },
+                maxLines = 2,
+                label = { Text(text = "Hotel Phone") },
+                isError = isLowError || isNotIntError || isEmptyError,
+                supportingText = {
+                    if (isLowError) {
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = "Amount is too low",
+                            color = MaterialTheme.colorScheme.error
+                        )
+                    }
+                    else if (isNotIntError) {
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = "Not a number!",
+                            color = MaterialTheme.colorScheme.error
+                        )
+                    }
+                    else if (isEmptyError) {
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = "No value entered!",
+                            color = MaterialTheme.colorScheme.error
+                        )
+                    }
+                },
+                trailingIcon = {
+                    if (isEmptyError || isShortError)
+                        Icon(Icons.Filled.Warning,"error", tint = MaterialTheme.colorScheme.error)
+                    else
+                        Icon(
+                            Icons.Default.Edit, contentDescription = "add or edit",
+                            tint = Color.Black
+                        )
+                },
+                keyboardActions = KeyboardActions { validateInt(hotelPhoneText) },
                 colors = OutlinedTextFieldDefaults.colors(
                     unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
                 )
@@ -335,6 +484,12 @@ fun DetailsScreen(
                 )
             }
         }
+            HotelImagePicker(
+                onImageUriChanged = {
+                    //imageUri = it
+                    //addHotelViewModel.updateImageUri(imageUri!!)
+                }
+            )
     }
 }
 

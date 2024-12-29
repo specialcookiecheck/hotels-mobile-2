@@ -43,10 +43,6 @@ fun HotelsScreen(modifier: Modifier = Modifier,
 
     Timber.i("RS : Hotels List = $hotels")
 
-//    LaunchedEffect(Unit) {
-//        hotelsViewModel.getHotels()
-//    }
-
     Column {
         Column(
             modifier = modifier.padding(
@@ -56,8 +52,6 @@ fun HotelsScreen(modifier: Modifier = Modifier,
         ) {
             if(isLoading) ShowLoader("Loading Hotels...")
             HotelsText(modifier, userName)
-//            if(!isError)
-//                ShowRefreshList(onClick = { hotelsViewModel.getHotels() })
             if (hotels.isEmpty() && !isError)
                 Centre(Modifier.fillMaxSize()) {
                     Text(
@@ -76,7 +70,6 @@ fun HotelsScreen(modifier: Modifier = Modifier,
                     onDeleteHotel = { hotel: HotelModel ->
                         hotelsViewModel.deleteHotel(hotel)
                     },
-                   // onRefreshList = { hotelsViewModel.getHotels() }
                 )
             }
             if (isError) {

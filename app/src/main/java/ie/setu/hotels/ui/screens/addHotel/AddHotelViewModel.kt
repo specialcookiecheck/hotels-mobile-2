@@ -43,10 +43,11 @@ constructor(private val repository: FirestoreService,
             Timber.i("AddHotel Insert Message = : ${error.value.message} and isError ${isErr.value}")
     }
 
-    fun updateImageUri(uri: Uri) {
+    fun uploadImageUri(uri: Uri) {
         viewModelScope.launch {
             authService.updateUserPhoto(uri)
-            firestoreService.updateUserPhotoUris(email,imageUri!!)
+            //authService.uploadHotelImage(uri)
+            //firestoreService.updateHotelImageUris(email,imageUri!!)
         }
     }
 }

@@ -148,7 +148,7 @@ private fun HotelCardContent(
                 )
             }
             Text(
-                text = "$latitude, $longitude", style = MaterialTheme.typography.headlineSmall
+                text = "$latitude, $longitude", style = MaterialTheme.typography.labelLarge
             )
             Text(
                 text = comment, style = MaterialTheme.typography.headlineMedium
@@ -157,7 +157,7 @@ private fun HotelCardContent(
                 Text(
                     modifier = Modifier.padding(start = 2.dp),
                     text = preferredPaymentType,
-                    style = MaterialTheme.typography.headlineSmall
+                    style = MaterialTheme.typography.labelLarge
                 )
                 Spacer(Modifier.weight(1f))
                 Text(

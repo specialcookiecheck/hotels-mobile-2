@@ -16,7 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 
 @Composable
-fun ShowHotelImagePicker(
+fun HotelImagePicker(
     onImageUriChanged: (Uri) -> Unit,
 ) {
     val context = LocalContext.current
@@ -31,6 +31,7 @@ fun ShowHotelImagePicker(
             onImageUriChanged(uri)
         }
         imageUri = uri
+        //imageUri = AuthRepository.uploadHotelImage(uri)
     }
 
     Column {

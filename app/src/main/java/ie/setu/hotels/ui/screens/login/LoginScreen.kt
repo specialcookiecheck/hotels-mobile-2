@@ -96,15 +96,12 @@ fun LoginScreen(
                     onButtonClicked = {
                         loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked)
                         onLogin()
-                        //navController.navigate(Hotels.route)
-                        //  { launchSingleTop = true }
                     },
                     isEnabled = loginViewModel.allValidationsPassed.value
 
                 )
                 isEnabled = loginViewModel.allValidationsPassed.value
 
-                // Google Button here
                 Spacer(modifier = Modifier.height(10.dp))
                 val context = LocalContext.current
                 GoogleSignInButtonComponent {

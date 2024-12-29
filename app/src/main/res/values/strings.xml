@@ -23,7 +23,7 @@
 
         <string name="create_account">Create an Account </string>
         <string name="account_settings">Account Settings</string>
-        <string name="welcome">Welcome Back</string>
+        <string name="welcome">Welcome!</string>
         <string name="first_name">First Name</string>
         <string name="email">Email</string>
         <string name="password">Password</string>
@@ -43,4 +43,7 @@
         <string name="traveller_cheques">Traveller Cheques</string>
         <string name="enter_comment">Comments on the hotel?</string>
         <string name="enter_hotel_name">Enter Hotel name</string>
+    <string name="enter_hotel_phone">Enter Hotel phone number</string>
+    <string name="enter_hotel_email">Enter Hotel Email</string>
+        <string name="enter_hotel_city">Enter Hotel City</string>
 </resources>
