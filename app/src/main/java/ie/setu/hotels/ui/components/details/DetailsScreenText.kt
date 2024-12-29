@@ -18,20 +18,14 @@ import ie.setu.hotels.ui.theme.HotelsTheme
 fun DetailsScreenText(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.padding(
-            top = 24.dp,
-            bottom = 8.dp
+            top = 1.dp,
+            bottom = 1.dp
         ),
         verticalArrangement = Arrangement.spacedBy(24.dp)) {
         Text(
             text = "Hotel Details",
             fontWeight = FontWeight.Bold,
             fontSize = 28.sp,
-            color = MaterialTheme.colorScheme.primary
-        )
-        Text(
-            text = "Please Update your Message Below",
-            fontWeight = FontWeight.Bold,
-            fontSize = 20.sp,
             color = MaterialTheme.colorScheme.primary
         )
     }

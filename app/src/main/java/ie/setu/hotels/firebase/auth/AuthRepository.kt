@@ -141,6 +141,7 @@ class AuthRepository
         return Uri.EMPTY
     }
 
+    /*
     private suspend fun uploadHotelImage(uri: Uri) : Uri {
         if (uri.toString().isNotEmpty()) {
             val urlTask = storageService.uploadFile(uri = uri, "hotel_images")
@@ -153,4 +154,8 @@ class AuthRepository
         }
         return Uri.EMPTY
     }
+
+     */
+
+
 }

@@ -35,7 +35,7 @@ fun RadioButtonGroup(modifier: Modifier = Modifier,
 
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(2.dp)
+        verticalArrangement = Arrangement.spacedBy(-25.dp)
     ){
         radioOptions.forEach { preferredPaymentText ->
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -49,7 +49,7 @@ fun RadioButtonGroup(modifier: Modifier = Modifier,
                 Text(
                     text = preferredPaymentText,
                     fontSize = 20.sp,
-                    modifier = Modifier.padding(start = 8.dp),
+                    modifier = Modifier.padding(1.dp),
                     color = MaterialTheme.colorScheme.primary
                 )
             }

@@ -47,8 +47,8 @@ private val LightColorScheme = lightColorScheme(
 val startGradientColor = PrimaryOrange
 val endGradientColor = TertiaryOrange
 
-val gStartGradientColor = Color(0xFF013B6E)
-val gEndGradientColor = Color(0xFF2189EB)
+val gStartGradientColor = PrimaryOrange
+val gEndGradientColor = TertiaryOrange
 
 val mStartGradientColor = Color(0xFF2191F4)
 val mEndGradientColor = Color(0xFF0473DC)

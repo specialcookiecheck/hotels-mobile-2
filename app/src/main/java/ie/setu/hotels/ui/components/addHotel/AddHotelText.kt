@@ -19,7 +19,7 @@ import ie.setu.hotels.ui.screens.map.MapViewModel
 import ie.setu.hotels.ui.theme.HotelsTheme
 
 @Composable
-fun WelcomeText(
+fun AddHotelText(
     modifier: Modifier = Modifier,
     name: String,
     mapViewModel: MapViewModel = hiltViewModel(),
@@ -35,16 +35,14 @@ fun WelcomeText(
             top = 24.dp,
             bottom = 24.dp
         ),
-        verticalArrangement = Arrangement.spacedBy(24.dp)) {
+        verticalArrangement = Arrangement.spacedBy(5.dp)) {
         Text(
-            //text = stringResource(R.string.addHotelTitle),
             text = ("$name, your new favourite?!"),
             fontWeight = FontWeight.Bold,
             fontSize = 28.sp,
             color = MaterialTheme.colorScheme.primary
         )
         Text(
-            // text = stringResource(R.string.addHotelSubtitle),
             text = ("$locationLatLng"),
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp,
@@ -55,8 +53,8 @@ fun WelcomeText(
 
 @Preview(showBackground = true)
 @Composable
-fun WelcomePreview() {
+fun AddHotelTextPreview() {
     HotelsTheme {
-        WelcomeText(Modifier, "Vinc")
+        AddHotelText(Modifier, "Vinc")
     }
 }
